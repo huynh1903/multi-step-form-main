@@ -1,0 +1,349 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap");
+
+:root {
+  --title-color: hsl(213, 96%, 18%);
+  --bg-sidebar-color: hsl(243, 100%, 62%);
+  --primary-color-3: hsl(228, 100%, 84%);
+  --primary-color-4: hsl(206, 94%, 87%);
+  --error-text-color: hsl(354, 84%, 57%);
+
+  --neutral-color-1: hsl(231, 11%, 63%);
+  --neutral-color-2: hsl(229, 24%, 87%);
+  --neutral-color-3: hsl(217, 100%, 97%);
+  --neutral-color-4: hsl(231, 100%, 99%);
+  --white-color: hsl(0, 0%, 100%);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Ubuntu", sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--neutral-color-3);
+}
+
+wrapper {
+    width: 70%;
+    height: 80%;
+    display: flex;
+    justify-content: space-between;
+    padding: 32px;
+    background: var(--white-color);
+    border-radius: 24px;
+}
+
+#sidebar {
+    width: 28%; 
+    background: var(--bg-sidebar-color);   
+    padding: 32px;
+    border-radius: 24px;
+}
+
+.list-sidebar {
+    height: 60%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+}
+.sidebar-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.sidebar-item:hover {
+    cursor: pointer;
+    transition: 0.2s ease-in;
+}
+.sidebar-item>span {
+    padding: 4px 9px;
+    border-radius: 100%;
+    font-weight: 500;
+    border: 1px solid var(--neutral-color-3);
+    color: var(--neutral-color-3);
+    background: var(--bg-sidebar-color);
+}
+.sidebar-item-content {
+    text-transform: uppercase;
+    margin-left: 20px;
+}
+.sidebar-item-content span {
+    font-size: 13px;
+    color: var(--neutral-color-2);
+}
+.sidebar-item-content h4 {
+    font-size: 16px;
+    color: var(--neutral-color-3);
+}
+.sidebar-item.active>span{
+    background: var(--neutral-color-3);
+    color: var(--title-color);
+    border: 1px solid var(--neutral-color-3);
+}
+
+
+#main {
+    width: 68%;
+    padding: 32px;
+    position: relative;
+}
+
+h2, #step-3 h4 {
+    color: var(--title-color);
+}
+p {
+    color: var(--neutral-color-1);
+    margin-top:8px;
+}
+.next-btn-container {
+    position: absolute;
+    bottom: 0;
+    right: 32px;
+}
+.next-btn{
+    border: 1px solid var(--title-color);
+    background: var(--title-color);
+    color: var(--white-color);
+    border-radius: 12px;
+    padding: 12px 20px ;
+    font-weight: 500;
+    font-size: 16px;
+}
+.next-btn:hover {
+    cursor: pointer;
+    transition: 0.2s ease-in;
+    color: var(--title-color);
+    background: var(--white-color);
+}
+.prev-btn-container {
+    position: absolute;
+    bottom: 0;
+    left: 32px;
+}
+.prev-btn{
+    color: var(--neutral-color-1);
+    font-weight: 500;
+    font-size: 16px;
+    border: none;
+    background: none;
+    padding: 12px 20px;
+}
+.prev-btn:hover {
+    cursor: pointer;
+    transition: 0.2s ease-in;
+    color: var(--title-color);
+}
+
+#step-1 form {
+    margin-top: 16px;
+}
+#step-1 form label {
+    display: block;
+    font-weight: 500;
+    color: var(--title-color);
+    margin: 16px 0 8px;
+}
+#step-1 form input {
+   border: 1px solid var(--neutral-color-2); 
+   border-radius: 8px;
+   padding: 12px 20px;
+   width: 100%;
+   font-size: 16px;
+}
+#step-1 form input:hover {
+    border: 1px solid var(--bg-sidebar-color);
+}
+#step-1 form input:focus-visible {
+    outline: none;
+}
+#step-1 .label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#step-1 .label .error {
+    font-size: 14px;
+    color: var(--error-text-color);
+    font-weight: 500;
+}
+
+#step-2 .container{
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+#step-2 .container .item {
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid var(--neutral-color-1);
+    width: 33%;
+    margin-top: 24px;
+    min-height: 160px;
+}
+#step-2 .container .item.active {
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid var(--bg-sidebar-color);
+    width: 33%;
+    margin-top: 24px;
+    min-height: 160px;
+}
+#step-2 .container .item:hover {
+    border: 1px solid var(--bg-sidebar-color);
+    cursor: pointer;
+    transition: 0.2s ease-in;
+}
+#step-2 .container h4 {
+    color: var(--title-color);
+    margin-top: 32px;
+}
+#step-2 .container span {
+    display: inline-block;
+    margin-top: 8px;
+    color: var(--neutral-color-1);
+}
+#step-2 .toggle-btn-container {
+    margin-top: 24px;
+    border-radius: 12px;
+    height: 48px;
+    background: var(--neutral-color-3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#step-2 .toggle-btn-container p {
+    margin-top: 0;
+    color: var(--title-color);
+    font-weight: 500;
+}
+#step-2 .toggle-btn-container>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* width: 32%; */
+}
+#step-2 .toggle-btn-container .toggle-btn{
+    width: 48px;
+    height: 24px;
+    margin: 0 16px;
+    background: var(--title-color);
+    border-radius: 12px;
+    padding: 4px 6px;
+}
+#step-2 .toggle-btn-container .toggle-btn:hover {
+    cursor: pointer;
+    transition: ease-in 0.2s;
+}
+#step-2 .toggle-btn-container .toggle-btn-circle {
+    width: 16px;
+    height: 16px;
+    background: var(--white-color);
+    border-radius: 100%;
+    /* float: right; */
+    transition: 0.5s ease-in;
+}
+
+#step-3 .item {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--primary-color-3);
+    padding: 12px 16px;
+    border-radius: 12px;
+}
+#step-3 .item:hover {
+    cursor: pointer;
+    transition: ease-in 0.2s;
+}
+#step-3 .item .item-icon {
+    height: 24px;
+    width: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    border: 1px solid var(--neutral-color-2);
+
+}
+#step-3 .item.active {
+    border: 1px solid var(--bg-sidebar-color);
+}
+#step-3 .item.active .item-icon {
+    background: var(--bg-sidebar-color);
+}
+#step-3 .item span {
+    color: var(--bg-sidebar-color);
+}
+
+
+#step-4 .container {
+    margin-top: 28px;    
+} 
+#step-4 .item-container {
+    padding: 24px;
+    border-radius: 12px;
+    background: var(--neutral-color-4);
+}
+#step-4 .container .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px;
+}
+#step-4 .item .step-4-changer {
+    color: var(--neutral-color-1);
+    text-decoration: underline;
+    margin: 8px 0;
+    display: inline-block;
+}
+#step-4 .item .step-4-changer:hover {
+    cursor: pointer;
+    transition: 0.2s ease-in;
+}
+#step-4 .total {
+    padding: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#step-4 h3 {
+    color: var(--bg-sidebar-color);
+}
+#step-4 .item-container .item:first-child {
+    border-bottom: 1px solid var(--neutral-color-2);
+}
+#step-4 .item-container h4 {
+    color: var(--title-color);
+}
+
+#step-5 {
+    text-align: center;
+    margin-top: 8%;
+    padding: 28px;
+}
+#step-5 h2 {
+    margin: 16px 0;
+}
+
+.hide {
+    display: none;
+}
+
+.float-right {
+    transform: translateX(20px);
+    transition: 0.5s ease-in;
+}
+
+.blur {
+    color: var(--neutral-color-1) !important;
+}
