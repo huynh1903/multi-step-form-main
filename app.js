@@ -1,172 +1,232 @@
-const price = {
-  arcade: 9,
-  advanced: 12,
-  pro: 15,
+const payments = {
+  arcade: {
+    title: "Arcade",
+    price: 9,
+  },
+  advanced: {
+    title: "Advanced",
+    price: 12,
+  },
+  pro: {
+    title: "Pro",
+    price: 15,
+  },
+  surcharge: {
+    onlineService: {
+      title: "Online Service",
+      price: 1,
+    },
+    langerStorage: {
+      title: "Larger Storage",
+      price: 2,
+    },
+    customizableProfile: {
+      title: "Customizable Profile",
+      price: 2,
+    },
+  },
 };
 
-const addOn = {
-  onlineService: 1,
-  langerStorage: 2,
-  customizableProfile: 2,
+const plane = {
+  product: {},
+  time: "",
+  surcharge: {},
 };
 
-//show content
-const showStep1Btn = document.getElementById("show-step-1");
-
-const showStep2Btn = document.getElementById("show-step-2");
-
-const showStep3Btn = document.getElementById("show-step-3");
-
-const showStep4Btn = document.getElementById("show-step-4");
-
-const contents = document.querySelectorAll(".content");
-const contentBtns = document.querySelectorAll(".sidebar-item");
-
-const hideAllContents = () => {
-  contents.forEach((content) => content.classList.add("hide"));
-  contentBtns.forEach((btn) => btn.classList.remove("active"));
-};
-
-showStep1Btn.addEventListener("click", () => {
-  hideAllContents();
-  document.querySelector("#step-1").classList.remove("hide");
-  showStep1Btn.classList.add("active");
-});
-
-showStep2Btn.addEventListener("click", () => {
-  hideAllContents();
-  document.querySelector("#step-2").classList.remove("hide");
-  showStep2Btn.classList.add("active");
-});
-
-showStep3Btn.addEventListener("click", () => {
-  hideAllContents();
-  document.querySelector("#step-3").classList.remove("hide");
-  showStep3Btn.classList.add("active");
-});
-
-showStep4Btn.addEventListener("click", () => {
-  hideAllContents();
-  document.querySelector("#step-4").classList.remove("hide");
-  showStep4Btn.classList.add("active");
-});
-
-// step 1
-const nameInput = document.querySelector("#name");
-const emailInput = document.querySelector("#email");
-const phoneNumberInput = document.querySelector("#phone-number");
-
-const checkInput = () => {
-  if (!nameInput.value) {
+// kiểm tra thông tin nhập vào sau đó chuyển sang bước 2 nếu khong có lỗi
+const nextStep1Btn = document.querySelector("#next-step-1");
+nextStep1Btn.addEventListener("click", () => {
+  //kiểm tra name và hiển thị lỗi
+  if (document.querySelector("#name").value === "") {
     document.querySelector(".name-error").classList.remove("hide");
   } else {
     document.querySelector(".name-error").classList.add("hide");
   }
-
-  if (!emailInput.value || !emailInput.value.includes("@")) {
+  //kiểm tra email và hiển thị lỗi
+  if (
+    document.querySelector("#email").value === "" ||
+    !document.querySelector("#email").value.includes("@")
+  ) {
     document.querySelector(".email-error").classList.remove("hide");
   } else {
     document.querySelector(".email-error").classList.add("hide");
   }
-
-  if (!phoneNumberInput.value) {
+  //kiểm tra phone-number và hiển thị lỗi
+  if (document.querySelector("#phone-number").value === "") {
     document.querySelector(".phone-error").classList.remove("hide");
   } else {
     document.querySelector(".phone-error").classList.add("hide");
   }
-
+  //keeimr tra và chuyển sang step-2
   if (
-    nameInput.value &&
-    emailInput.value &&
-    emailInput.value.includes("@") &&
-    phoneNumberInput.value
+    document.querySelector("#name").value &&
+    document.querySelector("#phone-number").value &&
+    document.querySelector("#email").value &&
+    document.querySelector("#email").value.includes("@")
   ) {
-    hideAllContents();
+    document.querySelector("#step-1").classList.add("hide");
     document.querySelector("#step-2").classList.remove("hide");
-    showStep2Btn.classList.add("active");
+    document.querySelector("#show-step-1").classList.remove("active");
+    document.querySelector("#show-step-2").classList.add("active");
   }
-};
+});
 
-const checkInputBtn = document.querySelector("#next-step-1");
-checkInputBtn.addEventListener("click", checkInput);
-
-//step 2
-const items = document.querySelectorAll(".item.step-2");
-
-// set giá trị cho step-2 theo tháng
-const setMonthlyPriceValue = () => {
-  document.querySelector(
-    "#arcade-price-month"
-  ).innerText = `$${price.arcade}/mo`;
-  document.querySelector(
-    "#advanced-price-month"
-  ).innerText = `$${price.advanced}/mo`;
-  document.querySelector("#pro-price-month").innerText = `$${price.pro}/mo`;
-};
-// set giá trị cho step-2 theo năm
-const setYearlyPriceValue = () => {
-  document.querySelector("#arcade-price-year").innerText = `$${
-    price.arcade * 10
-  }/yr`;
-  document.querySelector("#advenced-price-year").innerText = `$${
-    price.advanced * 10
-  }/yr`;
-  document.querySelector("#pro-price-year").innerText = `$${price.pro * 10}/yr`;
-};
-
-items.forEach((item) => {
-  item.addEventListener("click", () => {
-    items.forEach((item) => item.classList.remove("active"));
-    item.classList.add("active");
+//lựa chọn plan sau đó chuyển sang bước 3
+//hiển thị các content step-2
+document.querySelectorAll(".item.step-2").forEach((element) => {
+  element.addEventListener("click", () => {
+    document.querySelectorAll(".item.step-2").forEach((element) => {
+      element.classList.remove("active");
+    });
+    element.classList.add("active");
   });
 });
-
-const step3ToggleBtn = document.querySelector(".toggle-btn");
-step3ToggleBtn.addEventListener("click", () => {
-  document.querySelector(".toggle-btn-circle").classList.toggle("float-right");
-});
-
-const toggleContent = () => {
+//hiển thị mức giá theo tháng
+const displayPriceValueMonthly = () => {
   document.querySelectorAll(".yearly").forEach((element) => {
-    element.classList.toggle("hide");
-    document.querySelector(".yearly-selected").classList.toggle("blur");
-    setMonthlyPriceValue();
+    element.classList.add("hide");
   });
   document.querySelectorAll(".monthly").forEach((element) => {
-    element.classList.toggle("hide");
-    document.querySelector(".monthly-selected").classList.toggle("blur");
-    setYearlyPriceValue();
+    element.classList.remove("hide");
   });
+
+  document.querySelector(
+    "#arcade-price-month"
+  ).textContent = `$${payments.arcade.price}/mo`;
+  document.querySelector(
+    "#advanced-price-month"
+  ).textContent = `$${payments.advanced.price}/mo`;
+  document.querySelector(
+    "#pro-price-month"
+  ).textContent = `$${payments.pro.price}/mo`;
+
+  document.querySelector(".monthly-selected").classList.remove("blur");
+  document.querySelector(".yearly-selected").classList.add("blur");
+  document.querySelector(".toggle-btn-circle").classList.remove("float-right");
 };
+const displayPriceValueYearly = () => {
+  document.querySelectorAll(".monthly").forEach((element) => {
+    element.classList.add("hide");
+  });
+  document.querySelectorAll(".yearly").forEach((element) => {
+    element.classList.remove("hide");
+  });
 
-setMonthlyPriceValue();
-const toggleContentStep2 = document.querySelector(".toggle-btn");
-toggleContentStep2.addEventListener("click", toggleContent);
+  document.querySelector("#arcade-price-year").textContent = `$${
+    payments.arcade.price * 10
+  }/yr`;
+  document.querySelector("#advenced-price-year").textContent = `$${
+    payments.advanced.price * 10
+  }/yr`;
+  document.querySelector("#pro-price-year").textContent = `$${
+    payments.pro.price * 10
+  }/yr`;
 
+  document.querySelector(".monthly-selected").classList.add("blur");
+  document.querySelector(".yearly-selected").classList.remove("blur");
+  document.querySelector(".toggle-btn-circle").classList.add("float-right");
+};
+displayPriceValueMonthly();
+
+document.querySelector(".toggle-btn").addEventListener("click", () => {
+  if (
+    document.querySelector(".item.step-2 .monthly").classList.contains("hide")
+  ) {
+    displayPriceValueMonthly();
+    return;
+  }
+  displayPriceValueYearly();
+});
+
+// trở lại step-1
+document.querySelector("#step-2 .prev-btn").addEventListener("click", () => {
+  document.querySelector("#step-1").classList.remove("hide");
+  document.querySelector("#step-2").classList.add("hide");
+  document.querySelector("#show-step-1").classList.add("active");
+  document.querySelector("#show-step-2").classList.remove("active");
+});
+// lấy data và sang step 3
+
+document.querySelector("#step-2 .next-btn").addEventListener("click", () => {
+  const productSelected = document.querySelector(
+    ".item.step-2.active h4"
+  ).textContent;
+
+  switch (productSelected) {
+    case payments.arcade.title:
+      plane.product = payments.arcade;
+      break;
+    case payments.advanced.title:
+      plane.product = payments.advanced;
+      break;
+    case payments.pro.title:
+      plane.product = payments.pro;
+      break;
+    default:
+      break;
+  }
+
+
+
+  if (document.querySelector(".monthly-selected").classList.contains("blur")) {
+    plane.time = "Yearly";
+  } else {
+    plane.time = "Monthly";
+  }
+
+  document.querySelector("#step-2").classList.add("hide");
+  document.querySelector("#step-3").classList.remove("hide");
+  document.querySelector("#show-step-2").classList.remove("active");
+  document.querySelector("#show-step-3").classList.add("active");
+});
+
+//hiển thị giá trong step 3
 document.querySelector(
   "#online-service-price"
-).innerHTML = `$${addOn.onlineService}/mo`;
+).textContent = `+$${payments.surcharge.onlineService.price}/mo`;
 document.querySelector(
   "#larger-storage-price"
-).innerHTML = `$${addOn.langerStorage}/mo`;
+).textContent = `+$${payments.surcharge.langerStorage.price}/mo`;
 document.querySelector(
   "#customizable-profile-price"
-).innerHTML = `$${addOn.customizableProfile}/mo`;
+).textContent = `+$${payments.surcharge.customizableProfile.price}/mo`;
 
 document.querySelectorAll(".item.step-3").forEach((element) => {
   element.addEventListener("click", () => {
     element.classList.toggle("active");
   });
 });
+//trở lại step 2
+document.querySelector("#step-3 .prev-btn").addEventListener("click", () => {
+  document.querySelector("#step-2").classList.remove("hide");
+  document.querySelector("#step-3").classList.add("hide");
+  document.querySelector("#show-step-2").classList.add("active");
+  document.querySelector("#show-step-3").classList.remove("active");
+});
+//lấy data đã lựa chọn và sang step-4
+document.querySelector("#step-3 .next-btn").addEventListener("click", () => {
+  document.querySelectorAll(".item.step-3.active h4").forEach((element) => {
+    if (element.textContent === payments.surcharge.onlineService.title) {
+      plane.surcharge.onlineService = payments.surcharge.onlineService;
+    }
 
-let text = "";
+    if (element.textContent === payments.surcharge.langerStorage.title) {
+      plane.surcharge.langerStorage = payments.surcharge.langerStorage;
+    }
 
-if (document.querySelector(".monthly-selected").classList.contains("blur")) {
-  text = Yearly;
-} else {
-  text = Monthly;
-}
+    if (element.textContent === payments.surcharge.customizableProfile.title) {
+      plane.surcharge.customizableProfile =
+        payments.surcharge.customizableProfile;
+    }
+  });
 
-document.querySelector("#selected-item").innerHTML = `${
-  document.querySelector(".item.step-2.active>h4").textContent
-} (${text})`;
+  document.querySelector("#step-3").classList.add("hide");
+  document.querySelector("#step-4").classList.remove("hide");
+  document.querySelector("#show-step-3").classList.remove("active");
+  document.querySelector("#show-step-4").classList.add("active");
+});
+
+//step 4
+document.querySelector('#step-4 #selected-item').textContent = `${plane.product.title}(${plane.time})`
+
+
